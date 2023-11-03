@@ -32,40 +32,19 @@ while True:
 
                 #writing condition to check if finger is folded i.e checking if finger tip starting value is smaller than finger starting position which is inner landmark. for index finger    
                 #if finger folded changing color to green
-                if lm_list[tip].x < lm_list[tip - 3].x:
+
+
+                if lm_list[tip].y < lm_list[tip - 3].y:
                     cv2.circle(img, (x,y), 15, (0, 255, 0), cv2.FILLED)
-                    finger_fold_status.append(True)
+                    finger_fold_status.append(1)
+                    
                 else:
-                    finger_fold_status.append(False)
+                    finger_fold_status.append(0)
 
-            print(finger_fold_status)
-
-             #checking if all fingers are folded
-            if all(finger_fold_status):
-                #checking if the thumb is up
-                if lm_list[thumb_tip].y < lm_list[thumb_tip-1].y < lm_list[thumb_tip-2].y:
-                    print("LIKE")  
-                    cv2.putText(img ,"LIKE", (20,30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,0), 3)
-
-                #check if thumb is down
-                elif lm_list[thumb_tip].y > lm_list[thumb_tip-1].y > lm_list[thumb_tip-2].y:
-                    print("DISLIKE")   
-                    cv2.putText(img ,"DISLIKE", (20,30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255), 3)
-                '''
-                else:
-                    numOfFingers =0
-                    for tip in finger_tips:
-                #getting the landmark tip position and drawing blue circle
-                        x,y = int(lm_list[tip].x*w), int(lm_list[tip].y*h)
-                        cv2.circle(img, (x,y), 15, (255, 0, 0), cv2.FILLED)
-
-                #writing condition to check if finger is folded i.e checking if finger tip starting value is smaller than finger starting position which is inner landmark. for index finger    
-                #if finger folded changing color to green
-                        if lm_list[tip].x >= lm_list[tip - 3].x:
-                            numOfFingers+=1
-                    cv2.putText(img ,numOfFingers, (20,30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255), 3)
-'''
-
+            totalFingers=finger_fold_status.count(1)
+ #link :-https://github.com/advpro4/PROJECT-SOLUTION-C121/blob/main/sign_language.py
+            print(totalFingers)
+               
 
 
             mp_draw.draw_landmarks(img, hand_landmark,
